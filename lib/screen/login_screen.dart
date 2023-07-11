@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/dashboard.dart';
+import 'package:flutter_app/screen/dashboard.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 void maid() => (LoginScreen);
@@ -25,32 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(100.0),
-        child: ListView(scrollDirection: Axis.vertical, children: [
-          Image.asset("images/logo.jpg"),
-          SizedBox(height: 32),
-          Text(email),
-          TextField(controller: emailController),
-          SizedBox(height: 16),
-          Text(password),
-          TextFormField(
-            controller: passwordController,
-            obscureText: !isShow,
-            decoration: InputDecoration(
-              suffixIcon: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      isShow = !isShow;
-                    });
-                  },
-                  icon: Icon(isShow ? Icons.lock_open : Icons.lock)),
-            ),
-          ),
-          TextButton(
-              onPressed: () {
-                cekInput(emailController.text, passwordController.text);
-              },
-              child: Text("Login"))
-        ]),
+        child: ListView(scrollDirection: Axis.vertical, children: contents()),
       ),
     );
   }
@@ -62,5 +37,34 @@ class _LoginScreenState extends State<LoginScreen> {
     } else {
       Fluttertoast.showToast(msg: "Email atau password salah");
     }
+  }
+
+  List<Widget> contents() {
+    return [
+      Image.asset("images/logo.jpg"),
+      SizedBox(height: 32),
+      Text(email),
+      TextField(controller: emailController),
+      SizedBox(height: 16),
+      Text(password),
+      TextFormField(
+        controller: passwordController,
+        obscureText: !isShow,
+        decoration: InputDecoration(
+          suffixIcon: IconButton(
+              onPressed: () {
+                setState(() {
+                  isShow = !isShow;
+                });
+              },
+              icon: Icon(isShow ? Icons.lock_open : Icons.lock)),
+        ),
+      ),
+      TextButton(
+          onPressed: () {
+            cekInput(emailController.text, passwordController.text);
+          },
+          child: Text("Login"))
+    ];
   }
 }
